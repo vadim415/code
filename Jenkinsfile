@@ -16,7 +16,7 @@ pipeline {
                 git branch: 'main', credentialsId: 'github', url: 'git@github.com:vadim415/devops.git'
             }
         }
-        stages {
+        //stages {
         stage("Run AWS thing part 1") {
             steps {
                 withCredentials([[
@@ -27,7 +27,7 @@ pipeline {
                 ]]) {
                     sh "aws sts get-caller-identity"
             }
-        // }
+        }
         stage('terraform format check') {
             steps{
                 sh 'terraform fmt'
