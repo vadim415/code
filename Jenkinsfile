@@ -4,6 +4,12 @@ pipeline {
     //tools {
     //   terraform 'terraform'
     //}
+    environment {
+        AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        TF_IN_AUTOMATION      = '1'
+    }
+    
     stages {
         stage('Git checkout') {
            steps{
@@ -18,6 +24,7 @@ pipeline {
         stage('terraform Init') {
             steps{
                 sh 'terraform init'
+                sh 'aws ls'
             }
         }
         stage('terraform apply') {
