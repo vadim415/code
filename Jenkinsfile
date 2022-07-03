@@ -27,7 +27,7 @@ pipeline {
                 ]]) {
                     sh "aws sts get-caller-identity"
             }
-        }
+        // }
         stage('terraform format check') {
             steps{
                 sh 'terraform fmt'
