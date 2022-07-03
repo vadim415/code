@@ -16,6 +16,18 @@ pipeline {
                 git branch: 'main', credentialsId: 'github', url: 'git@github.com:vadim415/devops.git'
             }
         }
+        stages {
+        stage("Run AWS thing part 1") {
+            steps {
+                withCredentials([[
+                        $class: 'AmazonWebServicesCredentialsBinding', 
+                        credentialsId: 'aws_id', 
+                        accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'      
+                ]]) {
+                    sh "aws sts get-caller-identity"
+            }
+        }
         stage('terraform format check') {
             steps{
                 sh 'terraform fmt'
